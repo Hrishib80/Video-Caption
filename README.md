@@ -1,3 +1,9 @@
+
+
+
+
+
+
 # Veauido
 
 **Veauido** turns video URLs into timestamped, per-scene captions using scene detection and a ViT + GPT-2 image captioning model. Paste a YouTube or direct video link, and the app downloads the clip, splits it into visual scenes, captions a representative frame from each scene, and presents an interactive timeline you can export as SRT or JSON.
