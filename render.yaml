@@ -1,0 +1,14 @@
+# Deploy on Render: https://render.com/deploy
+# Live URL after deploy: https://veauido.onrender.com
+services:
+  - type: web
+    name: veauido
+    runtime: docker
+    plan: free
+    region: oregon
+    healthCheckPath: /api/health
+    envVars:
+      - key: VEAUIDO_PUBLIC_URL
+        value: https://veauido.onrender.com
+      - key: VEAUIDO_DEVICE
+        value: cpu

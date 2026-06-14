@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Veauido - High-Speed Video Captioning</title>
+  <meta name="description" content="Veauido turns video URLs into timestamped, per-scene captions with a high-speed rail inspired interface." />
+  <meta name="theme-color" content="#f4f7fb" />
+  <link rel="canonical" href="/" id="canonicalLink" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header" role="banner">
+    <a class="brand" href="/" aria-label="Veauido home">
+      <span class="brand-mark">V</span>
+      <span class="brand-text">VEAUIDO</span>
+    </a>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a href="#captionForm">Caption</a>
+      <a href="#resultsSection">Timeline</a>
+      <a href="#historySection">History</a>
+    </nav>
+    <div class="nav-status">
+      <span class="status-light"></span>
+      <span>AI rail online</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-section" aria-label="Video captioning">
+      <div class="hero-copy">
+        <p class="eyebrow">Bullet-train video intelligence</p>
+        <h1>Caption every scene at terminal speed.</h1>
+        <p class="hero-sub">
+          Paste a YouTube or video URL and Veauido splits the journey into scenes,
+          captions each key frame, and gives you a clean exportable timeline.
+        </p>
+
+        <form id="captionForm" class="input-group" autocomplete="off">
+          <div class="input-wrapper">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            <input
+              type="url"
+              id="videoUrlInput"
+              class="url-input"
+              placeholder="https://youtube.com/watch?v=..."
+              aria-label="Video URL"
+              required
+            />
+            <button type="button" id="clearInputBtn" class="clear-btn" aria-label="Clear input" hidden>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+          <button type="submit" id="submitBtn" class="btn btn-primary">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <span>Generate Captions</span>
+          </button>
+        </form>
+
+        <div class="hero-metrics" aria-label="Pipeline summary">
+          <span><strong>01</strong> Download</span>
+          <span><strong>02</strong> Detect scenes</span>
+          <span><strong>03</strong> Caption timeline</span>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-label="High-speed train visual">
+        <div class="train-card">
+          <img
+            src="https://source.unsplash.com/1400x950/?bullet-train,high-speed-rail"
+            alt="High-speed bullet train at a modern station"
+          />
+          <div class="speed-ribbon">
+            <span>Express AI</span>
+            <strong>320</strong>
+            <small>scenes/min</small>
+          </div>
+          <div class="route-panel">
+            <div>
+              <span>Source</span>
+              <strong>URL</strong>
+            </div>
+            <div class="route-line"></div>
+            <div>
+              <span>Output</span>
+              <strong>SRT + JSON</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="statusSection" class="status-section" aria-label="Processing status" hidden>
+      <div class="panel status-card">
+        <h2 class="status-heading">Processing your video...</h2>
+        <ol class="status-steps">
+          <li id="step-downloading" class="status-step" data-step="downloading">
+            <span class="step-indicator">
+              <svg class="step-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="step-spinner"></span>
+              <span class="step-dot"></span>
+            </span>
+            <span class="step-label">Downloading video</span>
+          </li>
+          <li id="step-detecting" class="status-step" data-step="detecting">
+            <span class="step-indicator">
+              <svg class="step-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="step-spinner"></span>
+              <span class="step-dot"></span>
+            </span>
+            <span class="step-label">Detecting scenes</span>
+          </li>
+          <li id="step-captioning" class="status-step" data-step="captioning">
+            <span class="step-indicator">
+              <svg class="step-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="step-spinner"></span>
+              <span class="step-dot"></span>
+            </span>
+            <span class="step-label">Generating captions</span>
+          </li>
+          <li id="step-complete" class="status-step" data-step="complete">
+            <span class="step-indicator">
+              <svg class="step-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="step-spinner"></span>
+              <span class="step-dot"></span>
+            </span>
+            <span class="step-label">Complete</span>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="errorSection" class="error-section" aria-live="assertive" hidden>
+      <div class="panel error-card">
+        <div class="error-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <p id="errorMessage" class="error-msg"></p>
+        <button id="errorDismissBtn" class="btn btn-ghost" type="button">Dismiss</button>
+      </div>
+    </section>
+
+    <section id="resultsSection" class="results-section" aria-label="Captioning results" hidden>
+      <div class="panel player-card">
+        <div class="video-container" id="videoContainer">
+          <video id="videoPlayer" class="video-player" controls preload="metadata">
+            Your browser does not support the video tag.
+          </video>
+          <div id="captionOverlay" class="caption-overlay" aria-live="polite">
+            <p id="captionOverlayText" class="caption-overlay-text"></p>
+          </div>
+        </div>
+        <div class="player-meta">
+          <span id="metaDuration" class="meta-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span id="metaDurationVal">--:--</span>
+          </span>
+          <span id="metaCaptions" class="meta-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            <span id="metaCaptionsVal">0 captions</span>
+          </span>
+          <span id="metaTime" class="meta-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span id="metaTimeVal">--s</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="panel timeline-card">
+        <div class="timeline-header">
+          <h2 class="timeline-title">Caption Timeline</h2>
+          <div class="action-buttons">
+            <button id="copyBtn" class="btn btn-outline btn-sm" type="button" title="Copy all captions">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span>Copy All</span>
+            </button>
+            <button id="downloadSrtBtn" class="btn btn-outline btn-sm" type="button" title="Download SRT">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>SRT</span>
+            </button>
+            <button id="downloadJsonBtn" class="btn btn-outline btn-sm" type="button" title="Download JSON">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>JSON</span>
+            </button>
+          </div>
+        </div>
+
+        <ul id="captionTimeline" class="caption-timeline" role="list"></ul>
+      </div>
+    </section>
+
+    <section id="historySection" class="history-section" aria-label="Recent captions" hidden>
+      <div class="panel history-card">
+        <h2 class="timeline-title">Recent Sessions</h2>
+        <ul id="historyList" class="history-list" role="list"></ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <p>Veauido Control Platform / AI Video Captioning</p>
+  </footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden>
+    <span id="toastMessage"></span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+fastapi
+numpy
+opencv-python-headless
+Pillow
+pydantic
+transformers
+uvicorn[standard]
+yt-dlp[default,curl-cffi]
